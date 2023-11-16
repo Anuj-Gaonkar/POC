@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/test
+    password: root
+    hikari:
+      maximumPoolSize: 5
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: none
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        enable_lazy_load_no_trans: true
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQL10Dialect
+  liquibase:
+    change-log: classpath:liquibase/db-changelog-master.xml
+    url: jdbc:postgresql://localhost:5432/test
+    user: postgres
+    password: root
