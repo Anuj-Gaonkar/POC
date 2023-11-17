@@ -1,5 +1,6 @@
 package com.poc.spring.service.internal.impl;
 
+import com.poc.spring.exception.ModelAlreadyExistsException;
 import com.poc.spring.model.User;
 import com.poc.spring.repositories.UserRepository;
 import com.poc.spring.service.internal.UserInternalService;
@@ -16,6 +17,8 @@ public class UserInternalServiceImpl implements UserInternalService {
 
     @Override
     public User saveNewUserToDb(User user) {
+        if (userRepository.existsByEmailOrPhoneNumber(user.getEmail(), user.getPhoneNumber()))
+            throw new ModelAlreadyExistsException("User not found");
         return userRepository.save(user);
     }
 }

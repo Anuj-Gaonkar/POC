@@ -4,6 +4,7 @@ import com.poc.spring.domain.request.CreateUserDto;
 import com.poc.spring.model.RoleName;
 import com.poc.spring.model.Status;
 import com.poc.spring.model.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -26,7 +27,6 @@ public class UserHelper {
                 .isUserAccountExpired(true)
                 .isUserAccountLocked(true)
                 .isUserAccountCredentialsExpired(true)
-                .password(createUserDto.getPassword())
                 .build();
         user.setPublicId(UUID.randomUUID());
         user.setVersion(BigInteger.ZERO);

@@ -1,10 +1,10 @@
 package com.poc.spring.service.main;
 
 import com.poc.spring.domain.request.CreateUserDto;
-import com.poc.spring.domain.response.AuthenticationResponse;
-import com.poc.spring.model.User;
+import com.poc.spring.domain.response.AppResponse;
+import com.poc.spring.domain.response.UserResponse;
 
 public interface UserService {
 
-    AuthenticationResponse createUser(CreateUserDto userDto);
+    AppResponse<UserResponse> createUser(CreateUserDto userDto);
 }
