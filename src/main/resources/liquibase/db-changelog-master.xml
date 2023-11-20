@@ -3,4 +3,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <include file="changelog/create-user-table.sql" relativeToChangelogFile="true"/>
+    <include file="changelog/create-token.sql" relativeToChangelogFile="true"/>
+    <include file="changelog/foreign-constraint-token.sql" relativeToChangelogFile="true"/>
+    <include file="changelog/alter-token.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>

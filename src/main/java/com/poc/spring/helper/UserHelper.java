@@ -1,10 +1,8 @@
 package com.poc.spring.helper;
 
 import com.poc.spring.domain.request.CreateUserDto;
-import com.poc.spring.model.RoleName;
 import com.poc.spring.model.Status;
 import com.poc.spring.model.User;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -22,7 +20,7 @@ public class UserHelper {
                 .firstName(createUserDto.getFirstName())
                 .lastName(createUserDto.getLastName())
                 .status(Status.INACTIVE.name())
-                .role(RoleName.USER)
+                .role(createUserDto.getRole())
                 .isEnabled(false)
                 .isUserAccountExpired(true)
                 .isUserAccountLocked(true)

@@ -1,22 +1,52 @@
 package com.poc.spring.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-@Builder
-@Data
-@Table(name = "roles")
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@Entity
-public class Role extends BaseEntity{
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-    @Enumerated(EnumType.STRING)
-    private RoleName roleName;
-    private String description;
-    private String status;
+import static com.poc.spring.model.Permission.*;
+
+@RequiredArgsConstructor
+public enum Role {
+
+  USER(Collections.emptySet()),
+  ADMIN(
+          Set.of(
+                  ADMIN_READ,
+                  ADMIN_UPDATE,
+                  ADMIN_DELETE,
+                  ADMIN_CREATE,
+                  MANAGER_READ,
+                  MANAGER_UPDATE,
+                  MANAGER_DELETE,
+                  MANAGER_CREATE
+          )
+  ),
+  MANAGER(
+          Set.of(
+                  MANAGER_READ,
+                  MANAGER_UPDATE,
+                  MANAGER_DELETE,
+                  MANAGER_CREATE
+          )
+  )
+
+  ;
+
+  @Getter
+  private final Set<Permission> permissions;
+
+  public List<SimpleGrantedAuthority> getAuthorities() {
+    var authorities = getPermissions()
+            .stream()
+            .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+            .collect(Collectors.toList());
+    authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+    return authorities;
+  }
 }

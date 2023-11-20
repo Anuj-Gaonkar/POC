@@ -3,11 +3,9 @@ package com.poc.spring.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
 @Builder
 @Data
@@ -24,9 +22,8 @@ public class User extends BaseEntity implements UserDetails {
     private String lastName;
     private String otherName;
     private String password;
-
     @Enumerated(EnumType.STRING)
-    private RoleName role;
+    private Role role;
     private String status;
     private Boolean isEnabled;
     private Boolean isUserAccountExpired;
@@ -35,7 +32,7 @@ public class User extends BaseEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return role.getAuthorities();
     }
 
     @Override

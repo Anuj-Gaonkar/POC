@@ -21,4 +21,9 @@ public class UserInternalServiceImpl implements UserInternalService {
             throw new ModelAlreadyExistsException("User not found");
         return userRepository.save(user);
     }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(RuntimeException::new);
+    }
 }
